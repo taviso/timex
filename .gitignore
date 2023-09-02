@@ -1,0 +1,12 @@
+*.swp
+*.exe
+*.dll
+*.cpu
+*.mem
+doc/
+dist/
+lib/
+include/asm
+include/sys
+bin/genapp
+bin/genpar
