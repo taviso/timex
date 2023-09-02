@@ -26,6 +26,8 @@ void show_message(void)
         LCD_END_BANNER
     };
 
+    lcdClearDisplay();
+
     // Draw "hello!" using lcdDispBannerMsg macro
     lcdDispBannerMsg(&banner);
 

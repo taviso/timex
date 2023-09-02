@@ -17,13 +17,15 @@ void default_state_manager(void)
 
     switch (CORECurrentEvent) {
         case COREEVENT_STATEENTRY:
-            //coreSuspendRingEvents();
             coreEnableSwitchReleaseEvents();
             coreAllowKeys(COREALLOWALLSWITCHES);
             lcdDispBannerMsg(&banner);
             break;
         case COREEVENT_CROWN_SET:
             coreRequestStateChange(CORESETBANNERSTATE);
+            break;
+        case COREEVENT_STARTSPLITDEPRESS:
+            show_message();
             break;
         case COREEVENT_MODEDEPRESS:
             coreRequestModeChangeNext();
