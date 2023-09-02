@@ -1,10 +1,10 @@
-AS=bin/as88.exe
-LK=bin/lk88.exe
-LC=bin/lc88.exe
-SY=bin/sy88.exe
-PR=bin/pr88.exe
-C88=bin/c88.exe
-EQ=bin/makeequ.exe
+AS=$(WINE) bin/as88.exe
+LK=$(WINE) bin/lk88.exe
+LC=$(WINE) bin/lc88.exe
+SY=$(WINE) bin/sy88.exe
+PR=$(WINE) bin/pr88.exe
+C88=$(WINE) bin/c88.exe
+EQ=$(WINE) bin/makeequ.exe
 DESC=etc/s1c88349.dsc
 ASFLAGS=-Iinclude/asm/ -Ms -gaLHS -OHjN -LcdeGlmNpqsWXy -e -w125
 LKFLAGS=-d$(DESC) -M -c -L -Llib/ -e -N -r
@@ -29,6 +29,12 @@ states:=$(basename $(sources))
 
 sources+=param.asm common.asm common.c
 
+# Check if this is wsl or Linux.
+ifneq ($(findstring icrosoft,$(shell uname -r)), icrosoft)
+    WINE=wine
+endif
+
+
 # Get make to delete this junk generated during build.
 .INTERMEDIATE: $(addsuffix .lnl,$(states) param common)
 .INTERMEDIATE: $(addsuffix .map,$(states) param common)
@@ -41,20 +47,24 @@ sources+=param.asm common.asm common.c
 %.bin: %.sre
 	objcopy -I srec -O binary $^ $@
 
-# The mv/mv pattern is to workaround case issues.
 # NOTE: I could replace this with an awk script.
-%.sy: %.map
+%.SY: %.map
 	-$(SY) $<
-	@mv $@ $@_
-	@mv $@_ $@
 
-%.equ: %.sy
+%.EQU: %.sy
 	$(EQ) $^
-	@mv $@ $@_
-	@mv $@_ $@
+
+# The mv/mv pattern is to workaround case-sensitive fs issues.
+%.sy: %.SY
+	@mv $< $<_
+	@mv $<_ $@
+
+%.equ: %.EQU
+	@mv $< $<_
+	@mv $<_ $@
 
 %.inc: %.equ
-	awk '{print "#define",$$1,strtonum("0x"$$3)}' < $< > $@
+	@awk '{print "#define",$$1,strtonum("0x"$$3)}' < $< > $@
 
 %.obj: %.asm
 	$(AS) $(ASFLAGS) $< -o $@
@@ -73,9 +83,10 @@ sources+=param.asm common.asm common.c
 # we also need to translate GNU line-markers to C88 markers, or
 # warnings/errors will have the wrong line.
 %.i: %.c
-	cpp $(C88PPFLAGS) -o $@ $<
-	@sed -i 's/^# \([0-9]\+ ".*"\).*/#line \1/g' $@
+	cpp $(C88PPFLAGS) -o $@_ $<
+	@awk '/^# [0-9]+/ {print "#line",++$$2,$$3;next}{print}' < $@_ > $@
 	@unix2dos -q $@
+	@rm -f $@_
 
 ifdef USE_GNU_CPP
 %.s: %.i
@@ -89,8 +100,8 @@ endif
 all: buildenv $(codebin) $(parbin)
 
 buildenv:
-	@test -f $(C88) || echo please run buildenv.sh to setup the toolchain.
-	@test -f $(C88)
+	@test -f bin/c88.exe || echo please run buildenv.sh to setup the toolchain.
+	@test -f bin/c88.exe
 
 # All objects other than the common code need to know the common address.
 $(addsuffix .out,params $(states)): | common.equ common.inc
@@ -121,7 +132,7 @@ clean::
 	rm -f *.s *.s_
 	rm -f *.arg
 	rm -f *.inc
-	rm -f *.i
+	rm -f *.i *.i_
 	rm -f lib/*.obj
 	rm -rf bin/genapp bin/genpar
 	rm -rf bin/DB bin/tucp.ini

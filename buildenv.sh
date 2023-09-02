@@ -9,11 +9,15 @@ declare c88url="https://web.archive.org/web/20190411141705if_/http://www.epsonde
 declare tmpdir=$(mktemp -d)
 
 mkdir -p include/asm
-mkdir -p include/sys
 mkdir -p bin
 mkdir -p etc
 mkdir -p lib
 mkdir -p dist
+
+type wget unzip msiextract unshield || {
+    echo "please install the required dependencies (wget, msitools, unshield)" 1>&2
+    exit 1
+}
 
 pushd dist > /dev/null
 
@@ -54,7 +58,7 @@ mv "${tmpdir}"/target/lib/src/*.{asm,c} lib/
 
 # headers
 mv "${tmpdir}"/SOURCEDIR/M851/include/*.h include/asm/
-mv "${tmpdir}"/target/include/*.h include/sys/
+mv "${tmpdir}"/target/include/*.h include/
 
 # fixup perms for wsl
 chmod 755 bin/*.exe
