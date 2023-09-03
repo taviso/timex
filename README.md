@@ -2,7 +2,7 @@
 
 This is a "hello world" for the Timex m851 written in C.
 
-I ported the official SDK to C.
+I ported the official SDK to C, I wrote a brief article about it [here](https://lock.cmpxchg8b.com/timex.html).
 
 I hope this can be a useful template for building your own WristApp!
 
