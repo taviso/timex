@@ -9,10 +9,14 @@
 
 void background_handler (void)
 {
-    return;
-}
-
-void sleep (int n)
-{
+    switch (COREBackgroundEvent) {
+        // We are required to handle at least these events.
+        // However, it is completely valid to just return.
+        case COREEVENT_INIT:
+        case COREEVENT_TASKEXIT:
+        case COREEVENT_PEEK:
+        case COREEVENT_APP_SHUTDOWN_FOR_COMM:
+            break;
+    }
     return;
 }

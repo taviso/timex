@@ -30,7 +30,7 @@ states:=$(basename $(sources))
 sources+=param.asm common.asm common.c
 
 # Check if this is wsl or Linux.
-ifneq ($(findstring icrosoft,$(shell uname -r)), icrosoft)
+ifneq ($(findstring Microsoft,$(shell uname -r)), Microsoft)
     WINE=wine
 endif
 

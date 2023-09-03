@@ -4,6 +4,7 @@
 #define __TIMEX_CORE_H
 
 _sfrbyte COREKeyMask _at(0xF0FD);
+_sfrbyte COREInitializationASDAddress _at(0xF10C);
 
 enum KEY_MASK {
     bCORESwitch1                    = 1 << 0,
