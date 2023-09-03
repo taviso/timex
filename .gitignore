@@ -3,6 +3,9 @@
 *.dll
 *.cpu
 *.mem
+*.bin
+*.obj
+common.inc
 doc/
 dist/
 lib/
