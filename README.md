@@ -6,6 +6,8 @@ I ported the official SDK to C.
 
 I hope this can be a useful template for building your own WristApp!
 
+<img src="https://github.com/taviso/timex/assets/123814/0e09f3d4-da91-4720-8198-9659bfb6f542" width=50% height=50%>
+
 # Requirements
 
 You need `wine`, `unshield` and `msitools`.
@@ -125,6 +127,8 @@ USE_GNU_CPP = 1
 
 Once your `Makefile` is complete, just type `make`!
 
+![make](https://github.com/taviso/timex/assets/123814/46cc947b-dbc6-4cb3-b0fa-e9dc412eab49)
+
 You can upload your app to your watch using `libdlusb`.
 
 ## Windows
@@ -142,4 +146,5 @@ There is an simulator with debugging support (breakpoints, disassembler, save st
 
 It is Windows only, but very handy for development.
 
+![datalink](https://github.com/taviso/timex/assets/123814/cdafffec-f685-462a-9ed6-cf3638000a62)
 
