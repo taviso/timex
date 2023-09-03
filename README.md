@@ -133,7 +133,7 @@ You can upload your app to your watch using `libdlusb`.
 
 ## Windows
 
-If you are using Windows, either copy the `.app` and `.bin` files to your
+If you are using Windows, copy the `.app` and `.bin` files to your
 `C:\Program Files (x86)\Timex\App` directory.
 
 Alternatively, just run `bin/wristappdl.exe` for a simple upload tool.
