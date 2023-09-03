@@ -9,6 +9,7 @@ declare c88url="https://web.archive.org/web/20190411141705if_/http://www.epsonde
 declare tmpdir=$(mktemp -d)
 
 mkdir -p include/asm
+mkdir -p include/sys
 mkdir -p bin
 mkdir -p etc
 mkdir -p lib
@@ -58,7 +59,7 @@ mv "${tmpdir}"/target/lib/src/*.{asm,c} lib/
 
 # headers
 mv "${tmpdir}"/SOURCEDIR/M851/include/*.h include/asm/
-mv "${tmpdir}"/target/include/*.h include/
+mv "${tmpdir}"/target/include/*.h include/sys/
 
 # fixup perms for wsl
 chmod 755 bin/*.exe
