@@ -17,16 +17,9 @@
 
 - Scan firmware for instructions we can borrow to compress our code?
 - LD EP, #0 should be unescessary - remove in cleancc.
+- Can I detect tail recursion and `s/carl;ret/jrl/g` easily?
 
-- The problem with linking is that the text has to be at a specific location
-    like segment text at 0x12345
-    and if we want multiple files linked together, they have to know where
-    the first one ends. We can do this, but will need some awk magic.
-    like text at FirstOneEnd.
-- This is the problem with even addinng .obj, need to do the layout manually
-- __start must come first!! We need to figure out how to convince the linker to work, cause this isn't working. very first instruction must be _start!!!!__
-- This isn't entirely true, your params file can control where things are located.
-
+I'm not 100% certain my tricks to force consistent calling convention is working.
 
 # Notes
 ## Print Section Summary
