@@ -6,7 +6,7 @@ I ported the official SDK to C.
 
 I hope this can be a useful template for building your own WristApp!
 
-<img src="https://github.com/taviso/timex/assets/123814/0e09f3d4-da91-4720-8198-9659bfb6f542" width=50% height=50%>
+![crown](https://github.com/taviso/timex/assets/123814/8b04b788-d304-48cf-8239-009a207597c9)
 
 # Requirements
 
