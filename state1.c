@@ -13,8 +13,6 @@ static uint8_t banner[] = {
 
 void default_state_manager(void)
 {
-    int j;
-
     switch (CORECurrentEvent) {
         case COREEVENT_STATEENTRY:
             coreEnableSwitchReleaseEvents();
