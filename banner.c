@@ -3,7 +3,8 @@
 #include <stdint.h>
 #include <timex.h>
 
-static const char _near * globe[] = {
+// An ASCII art globe, for "hello world!" :-)
+static const char * globe[] = {
    "    XXXX   ",
    "   X....X  ",
    "  X......X ",
@@ -13,8 +14,9 @@ static const char _near * globe[] = {
    NULL
 };
 
-static const uint8_t kBaseX = 16;
-static const uint8_t kBaseY = 6;
+// Where to draw the globe
+#define BASE_ROW 6
+#define BASE_COL 16
 
 void show_message(void)
 {
@@ -36,10 +38,10 @@ void show_message(void)
         for (x = 0; globe[y][x]; x++) {
             // A space character is cleared.
             if (globe[y][x] == ' ') {
-                lcdClrMainDMPixel(x + kBaseX, y + kBaseY);
+                lcdClrMainDMPixel(x + BASE_COL, y + BASE_ROW);
             // An X character is set.
             } else if (globe[y][x] == 'X') {
-                lcdDispMainDMPixel(x + kBaseX, y + kBaseY);
+                lcdDispMainDMPixel(x + BASE_COL, y + BASE_ROW);
             }
         }
     }
@@ -60,10 +62,10 @@ void show_message(void)
                 if (globe[y][x] != '.')
                     continue;
                 if (coreRandom() & 1) {
-                    lcdClrMainDMPixel(x + kBaseX, y + kBaseY);
+                    lcdClrMainDMPixel(x + BASE_COL, y + BASE_ROW);
                     continue;
                 }
-                lcdDispMainDMPixel(x + kBaseX, y + kBaseY);
+                lcdDispMainDMPixel(x + BASE_COL, y + BASE_ROW);
             }
         }
     }

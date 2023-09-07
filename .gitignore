@@ -5,11 +5,16 @@
 *.mem
 *.bin
 *.obj
+*.s
+*.i
 common.inc
+common.equ
 doc/
 dist/
 lib/
+debug/
 include/asm
 include/sys
 bin/genapp
 bin/genpar
+bin/gendb

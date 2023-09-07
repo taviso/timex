@@ -22,6 +22,7 @@ C88PPFLAGS=-C -undef -nostdinc -D_C88 -D__GNU__ -Iinclude -Iinclude/sys
 # Figure out the code and params filenames from the .app file
 codebin=$(shell grep -oiP '^code=\K.*' $(or $(firstword $(wildcard *.app)),/dev/null))
 parbin=$(shell grep -oiP '^par=\K.*' $(or $(firstword $(wildcard *.app)),/dev/null))
+dbbin=$(shell grep -oiP '^db=\K.*' $(or $(firstword $(wildcard *.app)),/dev/null))
 
 # Find out what states exist
 sources=$(wildcard state*.asm) $(wildcard state*.c)
@@ -47,21 +48,17 @@ endif
 %.bin: %.sre
 	objcopy -I srec -O binary $^ $@
 
-# NOTE: I could replace this with an awk script.
-%.SY: %.map
-	-$(SY) $<
-
-%.EQU: %.sy
-	$(EQ) $^
-
 # The mv/mv pattern is to workaround case-sensitive fs issues.
-%.sy: %.SY
-	@mv $< $<_
-	@mv $<_ $@
+# NOTE: I could replace this with an awk script.
+%.sy: %.map
+	-$(SY) $<
+	@mv $@ $@_
+	@mv $@_ $@
 
-%.equ: %.EQU
-	@mv $< $<_
-	@mv $<_ $@
+%.equ: %.sy
+	$(EQ) $^
+	@mv $@ $@_
+	@mv $@_ $@
 
 %.inc: %.equ
 	@awk '{print "#define",$$1,strtonum("0x"$$3)}' < $< > $@
@@ -97,7 +94,7 @@ endif
 	awk -f bin/cleancc.awk < $@_ > $@
 	@rm -f $@_
 
-all: buildenv $(codebin) $(parbin)
+all: buildenv $(codebin) $(parbin) $(dbbin)
 
 buildenv:
 	@test -f bin/c88.exe || echo please run buildenv.sh to setup the toolchain.
@@ -108,7 +105,7 @@ $(addsuffix .out,params $(states)): | common.equ common.inc
 $(addsuffix .s,params $(states)): | common.equ common.inc
 
 # We can't use the short attribute, because code must load at an address > 0x8000
-$(addsuffix .obj,$(basename $(wildcard lib/*.asm))): ASFLAGS+=-DSHORT=NOCLEAR
+$(addsuffix .obj,$(basename $(wildcard lib/*.asm))): ASFLAGS+=-DSHORT=CODE -w102
 
 common.sre common.map: LCFLAGS:=$(filter-out -em_common,$(LCFLAGS))
 
@@ -117,6 +114,9 @@ $(codebin): common.bin $(sort $(addsuffix .bin,$(states))) | bin/genapp
 
 $(parbin): param.bin | bin/genpar $(codebin)
 	./bin/genpar -c $$(wc -c < $(codebin)) < $^ > $@
+
+$(dbbin): $(sort $(wildcard db/*.rec)) | bin/gendb
+	./bin/gendb $^ > $@
 
 clean::
 	rm -f *.equ *.EQU *.EQU_
@@ -134,7 +134,7 @@ clean::
 	rm -f *.inc
 	rm -f *.i *.i_
 	rm -f lib/*.obj
-	rm -rf bin/genapp bin/genpar
+	rm -rf bin/genapp bin/genpar bin/gendb
 	rm -rf bin/DB bin/tucp.ini
 
 distclean:: clean

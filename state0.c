@@ -13,8 +13,6 @@ static uint8_t banner[] = {
 
 void banner_state_manager (void)
 {
-    int j;
-
     // If you just use the default handler, it will display the mode name
     // from the parameter block for 1.5 seconds, and then switch to the
     // default state.

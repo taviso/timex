@@ -10,6 +10,8 @@ __spoils(hl)    extern _asmfunc coreEnableRingEvents(void);
 __spoils(b)     extern _asmfunc coreSuspendSwitchReleaseEvents(void);
 __spoils(hl)    extern _asmfunc coreEnableSwitchReleaseEvents(void);
 __spoils(hl)    extern _asmfunc coreCallModeName(int8_t state);
+__spoils(b)     extern _asmfunc coreSetAutoreturnToPrimary(void);
+__spoils(b)     extern _asmfunc coreClearAutoreturnToPrimary(void);
 
 __spoils(b) _inline _asmfunc coreSetPopDownState(int8_t state)
 {

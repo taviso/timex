@@ -108,6 +108,26 @@ clean::
 	rm -f my_extra_file
 ```
 
+### Databases
+
+If you want to create a database, first add a `DB=` section to your `.app` file.
+
+Create records called `*.rec` in the `db` directory.
+
+You can call the records `00_foo.rec`, `02_bar.rec`, `03_baz.rec` and so on.
+They will be added to the database in filename order.
+
+> Note: Currently it will always be a random access, variable record size
+> database.
+
+Use code like this to access it:
+
+```c
+    dbOpenFile();
+    dbReadRecordRandomVar(&rec, num, sizeof(rec));
+    dbCloseFile();
+```
+
 ### Pre-processing
 
 The `c88` compiler is sometimes finicky. A recommended step is to pre-process

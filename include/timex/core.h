@@ -5,6 +5,10 @@
 
 _sfrbyte COREKeyMask _at(0xF0FD);
 _sfrbyte COREInitializationASDAddress _at(0xF10C);
+_sfrword CORECurrentADDAddress _at(0xF108);
+_sfrword COREBackgroundADDAddress _at(0xF10E);
+_sfrbyte COREWorkBuffer _at(0xF257);
+_sfrword CORECurrentASDAddress _at(0xF106);
 
 enum KEY_MASK {
     bCORESwitch1                    = 1 << 0,

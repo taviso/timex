@@ -11,6 +11,7 @@
 //
 // 1. __spoils() lets c88 know that a function will clobber certain registers.
 // 2. __uses() lets c88 know that a regparam must be loaded.
+// 3. __useptr() lets c88 know a pointer might be written too.
 //
 // The caveats are that not all registers can be marked spoiled, if you touch
 // IX, IY, etc, then you must push/pop it.
@@ -24,6 +25,8 @@ typedef short   ab_spoils_t;
 typedef long    hl_spoils_t;    // Implies AB
 
 #define __spoils(a) a ## _spoils_t
+
+#define __useptr(p) __fallthrough_iy(p)
 
 // Can use these to trick c88 into thinking iy/ix are damaged.
 // e.g. __fallthrough_iy(0)

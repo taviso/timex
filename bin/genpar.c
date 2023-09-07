@@ -41,9 +41,13 @@ int main(int argc, char **argv)
         err(EXIT_FAILURE, "failed to read in parameters");
     }
 
-    while ((opt = getopt(argc, argv, "c:")) != -1) {
+    while ((opt = getopt(argc, argv, "c:s:d:")) != -1) {
         switch (opt) {
             case 'c': data.codeheapsz = strtoul(optarg, NULL, 0);
+                      break;
+            case 's': data.sysheapsz = strtoul(optarg, NULL, 0);
+                      break;
+            case 'd': data.dbheapsz = strtoul(optarg, NULL, 0);
                       break;
             default:
                 err(EXIT_FAILURE, "unrecognized argument");

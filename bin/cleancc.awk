@@ -22,7 +22,9 @@ $1 == "END"     { next }
 
 # Any handling for special units
 $1 == "NAME"    {
-    switch (substr($2, 2, length($2) - 2)) {
+    name = substr($2, 2, length($2) - 2);
+
+    switch (name) {
         case "COMMON":
             # This reference is needed so that the locator generates it, it's a
             # user-defined label so we can find the ApplicationStateManager address.
@@ -83,6 +85,10 @@ $1 == "SECT"    {
             break;
         # We fold any others into our .text section.
         default:
+            if (name == "COMMON") {
+                $2 = "\".text_COMMON\"";
+                break;
+            }
             $2 = "\".text\"";
             break;
     }

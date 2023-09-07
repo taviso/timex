@@ -24,5 +24,6 @@
 #include "timex/lcdmac.h"
 #include "timex/hwmac.h"
 #include "timex/utlmac.h"
+#include "timex/dbmac.h"
 
 #endif

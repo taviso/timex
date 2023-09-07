@@ -15,5 +15,6 @@ include etc/rules.mk
 # Add any additional object dependencies here.
 state1.out: banner.obj
 
-# These are compiler runtime libraries.
-common.out: lib/mulxi.obj lib/blcps.obj
+# These are compiler runtime libraries. If you don't need any
+# you can remove them and save space.
+common.out: lib/mulxi.obj lib/blcps.obj lib/divui.obj lib/divsc.obj

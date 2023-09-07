@@ -50,7 +50,7 @@ sect    ".param"
     ; Application Unique ID.
     ;============================================================
 
-    db      COREAPPTYPECOUNTER          ; Application type
+    db      COREAPPTYPEGENERIC          ; Application type
     db      00h                         ; Application instance number
 
     ;============================================================
