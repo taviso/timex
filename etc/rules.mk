@@ -14,7 +14,7 @@ LKLIBS=
 
 # Optionally, we can pre-process files with gnu cpp, to get more modern
 # features like variadic macros, just set USE_GNU_CPP = 1
-C88PPFLAGS=-C -undef -nostdinc -D_C88 -D__GNU__ -Iinclude -Iinclude/sys
+C88PPFLAGS=-C -DSMALL -undef -nostdinc -D_C88 -D__GNU__ -Iinclude -Iinclude/sys
 
 .DEFAULT_GOAL = all
 .PHONY: clean buildenv

@@ -26,12 +26,12 @@ void set_state_manager (void)
             break;
         case COREEVENT_CW_EDGE_TRAILING:
             lcdClearDisplay();
-            banner[0] = 0x80 | --position;
+            banner[0] = LCDBANNER_COL(--position);
             lcdDispBannerMsg(&banner);
             break;
         case COREEVENT_CCW_EDGE_TRAILING:
             lcdClearDisplay();
-            banner[0] = 0x80 | ++position;
+            banner[0] = LCDBANNER_COL(++position);
             lcdDispBannerMsg(&banner);
             break;
     }

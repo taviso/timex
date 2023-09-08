@@ -117,6 +117,7 @@ enum BANNER_STARTING_COLUMN {
 };
 
 #define LCD_END_BANNER 0xff
+#define LCDBANNER_COL(n) ((n) |  (1 << 7))
 
 enum DM5_CHARSET {
     DM5_0                     = 0,
