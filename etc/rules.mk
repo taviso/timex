@@ -134,6 +134,7 @@ clean::
 	rm -f *.inc
 	rm -f *.i *.i_
 	rm -f lib/*.obj
+	rm -f util/*.obj
 	rm -rf bin/genapp bin/genpar bin/gendb
 	rm -rf bin/DB bin/tucp.ini
 

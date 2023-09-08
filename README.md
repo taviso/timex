@@ -160,6 +160,17 @@ Alternatively, just run `bin/wristappdl.exe` for a simple upload tool.
 
 > Note: I needed to run it with Administrator priviliges and in compatability mode.
 
+## Errors
+
+##### `lc88 E200 (0): Absolute address xyz occupied`
+
+This means the locator couldn't find a way to fit your code into the available
+space. You can try splitting your code into more states, or reducing the amount
+of code in your common section to free up space.
+
+If you're accessing lots of static data (strings, tables, etc), try putting that
+data into a database instead, that will make more room for code.
+
 ## Debugging
 
 There is an simulator with debugging support (breakpoints, disassembler, save states, etc).
